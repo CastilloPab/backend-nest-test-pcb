@@ -1,4 +1,4 @@
-peline {
+pipeline {
     agent any
     // escenarios -> escenario -> pasos
     environment{
