@@ -65,7 +65,7 @@ pipeline {
             }
             steps {
                 withKubeConfig([credentialsId: 'gcp-kubeconfig']){
-                    sh "kubectl -n lab-pcb set image deployments/backend-nest-test-pcb backend-nest-test-pcb=${dockerImageName}/backend-nest-test-pcb:${BUILD_NUMBER}"
+                    sh "kubectl -n lab-pcb set image deployments/backend-nest-test-pcb backend-nest-test-pcb=${dockerImagePrefix}/backend-nest-test-pcb:${BUILD_NUMBER}"
                 }
             }
         }
