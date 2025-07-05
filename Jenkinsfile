@@ -56,6 +56,13 @@ pipeline {
                 }
             }
         }
+        stage ("despliegue inicial si no existe"){
+            steps {
+                withKubeConfig([credentialsId: 'gcp-kubeconfig']){
+                    sh 'kubectl apply -f kubernetes.yaml'
+                }
+            }
+        }
         stage ("actualiza kubernets"){
             agent {
                 docker {
