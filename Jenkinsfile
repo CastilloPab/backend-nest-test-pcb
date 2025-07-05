@@ -76,5 +76,17 @@ pipeline {
                 }
             }
         }
+        stage("verifica pods") {
+            steps {
+                withKubeConfig([credentialsId: 'gcp-kubeconfig']){
+                    sh '''
+                    echo "Pods actuales:"
+                    kubectl get pods -n lab-pcb
+                    echo "Logs del backend:"
+                    kubectl logs -n lab-pcb -l app=backend-nest-test-pcb --tail=100 || true
+                    '''
+                }
+            }
+        }
     }
 }
