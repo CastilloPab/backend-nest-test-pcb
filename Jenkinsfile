@@ -56,5 +56,18 @@ pipeline {
                 }
             }
         }
+        stage ("actualiza kubernets"){
+            agent {
+                docker {
+                    image 'alpine/k8s:1.30.2'
+                    reuseNode true
+                }
+            }
+            steps {
+                withKubeConfig([credentialsId: 'gcp-kubeconfig']){
+                    sh "kubectl -n lab-pcb set image deployments/backend-nest-test-pcb backend-nest-test-pcb=${dockerImageName}/backend-nest-test-pcb:${BUILD_NUMBER}"
+                }
+            }
+        }
     }
 }
